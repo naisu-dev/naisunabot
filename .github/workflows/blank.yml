@@ -29,6 +29,7 @@ jobs:
           pip install Pillow
           pip install pandas
           pip install python-dotenv
+          pip install sympy
       - name: Run script
         run: |
           # main.pyの実行

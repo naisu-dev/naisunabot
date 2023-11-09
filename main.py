@@ -284,4 +284,8 @@ async def help(interaction: discord.Interaction, command: commandall=None):
         await interaction.response.send_message(embed=embed)
 
 import os
-client.run(os.environ.get("TOKEN "))
+from dotenv import load_dotenv
+
+load_dotenv()
+
+client.run(os.environ['TOKEN'])

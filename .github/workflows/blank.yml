@@ -32,6 +32,7 @@ jobs:
           pip install pandas
           pip install sympy
           pip install requests
+          pip install python-dotenv
       - name: Run script
         run: |
           # main.pyの実行

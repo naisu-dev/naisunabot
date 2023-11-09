@@ -285,5 +285,4 @@ async def help(interaction: discord.Interaction, command: commandall=None):
 
 import os
 
-
-client.run(os.environ['TOKEN  '])
+client.run(os.environ.get("TOKEN "))

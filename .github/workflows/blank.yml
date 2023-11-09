@@ -3,7 +3,8 @@ name: naisunabot
 
 # 発火タイミング
 on:
-  workflow_dispatch
+  schedule:
+    - cron: "* */5 * * *"
 
 jobs:
   build:

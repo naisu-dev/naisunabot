@@ -1,5 +1,5 @@
 # ワークフロー名
-name: test_chatbot
+name: naisunabot
 
 # 発火タイミング
 on:

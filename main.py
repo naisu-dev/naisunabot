@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 import sympy as sp
+from sympy import symbols
+from sympy.plotting import plot
 import enum
 import discord
 from discord import app_commands
@@ -58,16 +60,16 @@ class modes(enum.Enum):
     formula = "formula"
 
 class colors(enum.Enum):
-    blue = "tab:blue"
-    orange = "tab:orange"
-    green = "tab:green"
-    red = "tab:red"
-    purple = "tab:purple"
-    brown = "tab:brown"
-    pink = "tab:pink"
-    gray = "tab:gray"
-    olive = "tab:olive"
-    cyan = "tab:cyan"
+    blue = ["tab:blue","#1f77b4"]
+    orange = ["tab:orange","#ff7f0e"]
+    green = ["tab:green","#2ca02c"]
+    red = ["tab:red","#d62728"]
+    purple = ["tab:purple","#9467bd"]
+    brown = ["tab:brown","#8c564b"]
+    pink = ["tab:pink","#e377c2"]
+    gray = ["tab:gray","#7f7f7f"]
+    olive = ["tab:olive","#bcbd22"]
+    cyan = ["tab:cyan","#17becf"]
 
 @tree.command(name="graph", description="【naisumath】グラフの作成")
 async def graph(interaction: discord.Interaction, mode: modes, color: colors=None, start1: int=None, start2: int=None, count: int=None, x: int=None, formula: str=None):
@@ -78,7 +80,7 @@ async def graph(interaction: discord.Interaction, mode: modes, color: colors=Non
                 plt.plot(fibonacci_calc(start1, start2, count))
             else:
                 plt.clf()
-                plt.plot(fibonacci_calc(start1, start2, count), color=color.value)
+                plt.plot(fibonacci_calc(start1, start2, count), color=color.value[0])
             file = BytesIO()
             plt.savefig(file)
             file.seek(0)
@@ -96,7 +98,7 @@ async def graph(interaction: discord.Interaction, mode: modes, color: colors=Non
             if color is None:
                 plt.plot(aliquot_calc(x), color="tab:blue")
             else:
-                plt.plot(aliquot_calc(x), color=color.value)
+                plt.plot(aliquot_calc(x), color=color.value[0])
             file = BytesIO()
             plt.savefig(file)
             file.seek(0)
@@ -114,7 +116,10 @@ async def graph(interaction: discord.Interaction, mode: modes, color: colors=Non
             try:
                 x = sp.Symbol("x")
                 file = BytesIO()
-                sp.plotting.plot(formula, (x,-8,8), ylim=(-8,8), legend=True, show=False).save(file)
+                if color is None:
+                    sp.plotting.plot(formula, (x,-8,8), ylim=(-8,8), legend=True, show=False).save(file)
+                elif color is not None:
+                    sp.plotting.plot(formula, (x,-8,8), ylim=(-8,8), legend=True, show=False, line_color=color.value[1]).save(file)
                 file.seek(0)
                 guild = client.get_guild(1169631010833580043)
                 channel = guild.get_channel(1169631011366260818)

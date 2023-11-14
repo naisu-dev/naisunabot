@@ -293,7 +293,7 @@ async def admin_request(interaction: discord.Interaction, url: str):
     if interaction.user.id == 874430259599142922:
         res = requests.get(url).text
         file = StringIO(res)
-        await interaction.response.send_message(file=discord.File(file, "request.txt"))
+        await interaction.response.send_message(file=discord.File(file, "request.json"))
     else:
         await interaction.response.send_message("権限がありません　このコマンドは管理者にしか使用できません")
 

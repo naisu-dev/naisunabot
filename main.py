@@ -10,6 +10,7 @@ from PIL import Image, ImageFilter, ImageEnhance, ImageOps
 import requests
 import pandas as pd
 import random
+import json
 
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
@@ -292,10 +293,11 @@ async def help(interaction: discord.Interaction, command: commandall=None):
 async def admin_request(interaction: discord.Interaction, url: str):
     if interaction.user.id == 874430259599142922:
         res = requests.get(url).text
+        resjson = json.loads(res)
+        res = json.dumps(resjson, ensure_ascii=False, indent=4, sort_keys=True, separators=(',', ': '))
         file = StringIO(res)
         await interaction.response.send_message(file=discord.File(file, "request.json"))
-    else:
-        await interaction.response.send_message("権限がありません　このコマンドは管理者にしか使用できません")
+
 
 import os
 

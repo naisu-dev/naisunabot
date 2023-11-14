@@ -288,6 +288,13 @@ async def help(interaction: discord.Interaction, command: commandall=None):
         embed.add_field(name="例", value="/postcode code:111222333")
         await interaction.response.send_message(embed=embed)
 
+@tree.command(name="admin request", description="管理者限定コマンドです")
+async def admin_request(interaction: discord.Interaction, url: str):
+    if interaction.user.id == 874430259599142922:
+        res = requests.get(url).text
+        file = StringIO(res)
+        await interaction.response.send_message(file=discord.File(file, "request.txt"))
+
 import os
 
 client.run(os.environ.get("TOKEN"))
